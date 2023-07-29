@@ -1,0 +1,46 @@
+* {
+    margin:0;
+    padding:0;
+}
+
+#app {
+    margin:0 auto;
+    width:800px;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    height: 80px;
+    align-items:center;
+    position: relative;
+    border-bottom:2px solid #444;
+    margin-bottom:15px;
+}
+
+.menu-btn, .btn {
+    border:1px solid #ddd;
+    background-color: #fff;
+    padding:0.5rem 0.75rem;
+    border-radius: 0.25rem;
+    outline:none;
+}
+.menu-btn.active {
+    color:#fff;
+    background-color: #444;
+}
+
+.menu-btn:hover, .btn:hover {
+    color:#fff;
+    background-color: #444;
+}
+
+.menu {
+    margin-bottom:10px;
+}
+
+#myCanvas 
+{
+    width:100%;
+    border:1px solid #ddd;
+}

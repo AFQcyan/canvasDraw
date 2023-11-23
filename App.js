@@ -1,5 +1,6 @@
 import CircleTool from "./circleTool.js";
 import LineTool from "./Line.js";
+import StrokeTool from "./Stroke.js";
 import RectTool from "./RectTool.js";
 
 class App 
@@ -11,6 +12,7 @@ class App
 
         this.toolList = [
             new LineTool(ctx),
+            new StrokeTool(ctx),
             new RectTool(ctx),
             new CircleTool(ctx)
         ];

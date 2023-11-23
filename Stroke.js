@@ -1,43 +1,57 @@
 import Tool from "./Tool.js";
-export default class StrokeTool extends Tool
-{
-    constructor(ctx)
-    {
-        super(ctx);
-        this.before = {x:0, y:0};
-        this.lineWidthInput = document.querySelector("#lineWidthInput");
-        this.color = document.querySelector("#colorPicker");
-        this.ctx.lineCap = "round";
-        this.draw = false;
-    }
+export default class StrokeTool extends Tool {
+  constructor(ctx) {
+    super(ctx);
+    this.before = { x: 0, y: 0 };
+    this.lineWidthInput = document.querySelector("#lineWidthInput");
+    this.color = document.querySelector("#colorPicker");
+    this.ctx.lineCap = "round";
+    this.draw = false;
 
-    downHandle(e){
-        const ctx = this.ctx;
-        this.before = this.getPoint(e); //이전 좌표 알아내고
-        ctx.strokeStyle = this.color.value;
-        ctx.lineWidth = this.lineWidthInput.value;
-        ctx.setLineDash([5,10])
-        this.draw = true;
-    }
+    this.btx = null;
+    this.init();
+  }
 
-    upHandle(e)
-    {
-        this.draw = false;
-        this.ctx.setLineDash([]);
-    }
+  init() {
+    const canvas = document.createElement("canvas"); //백업용 캔버스 제작
+    canvas.width = this.ctx.canvas.width;
+    canvas.height = this.ctx.canvas.height;
 
-    moveHandle(e)
-    {
-        if(!this.draw) return;
-        
-        const ctx = this.ctx;
+    this.btx = canvas.getContext("2d"); //백업캔버스에 그리기 위한 도구
+  }
 
-        ctx.beginPath();
-        const {x:bx, y:by} = this.before;
-        ctx.moveTo(bx, by);
-        const {x, y} = this.getPoint(e);
-        ctx.lineTo(x,y);
-        ctx.stroke();
-        this.before = {x,y};
-    }
+  drawScreen(e) {
+    const { ctx, btx } = this;
+    ctx.clearRect(0, 0, btx.canvas.width, btx.canvas.height);
+    ctx.drawImage(btx.canvas, 0, 0);
+    const { x, y } = this.start;
+    const { x: tx, y: ty } = this.getPoint(e);
+    this.ctx.beginPath();
+    this.ctx.moveTo(x, y);
+    this.ctx.lineTo(tx, ty);
+    this.ctx.stroke();
+    this.ctx.closePath();
+  }
+
+  downHandle(e) {
+    const { ctx, btx } = this;
+    btx.clearRect(0, 0, btx.canvas.width, btx.canvas.height);
+    btx.drawImage(ctx.canvas, 0, 0); //백업 캔버스에 현재 캔버스를 복사
+    this.start = this.getPoint(e);
+    ctx.strokeStyle = this.color.value;
+    ctx.lineWidth = this.lineWidthInput.value;
+    ctx.setLineDash([5, 10]); //5픽셀 길이 점선으로 10픽셀씩 떨어뜨리면서 그린다.
+    this.draw = true;
+  }
+
+  upHandle(e) {
+    this.draw = false;
+    this.ctx.setLineDash([]);
+    this.drawScreen(e);
+  }
+
+  moveHandle(e) {
+    if (!this.draw) return;
+    this.drawScreen(e);
+  }
 }

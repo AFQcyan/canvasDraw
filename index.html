@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>그림판</title>
-    <link rel="stylesheet" href="App.css">
+    <link rel="stylesheet" href="App.css" />
     <script src="App.js" type="module"></script>
-</head>
-<body>
+  </head>
+  <body>
     <div id="app">
-        <header>
-            <h2>에디터</h2>
-        </header>
-        <section id="content">
-            <div class="menu">
-                <button class="menu-btn" id="btnBrush" data-idx="0">브러쉬</button>
-                <button class="menu-btn" id="btnLine" data-idx="1">브러쉬</button>
-                <button class="menu-btn" id="btnRect" data-idx="2">사각형</button>
-                <button class="menu-btn" id="btnCircle" data-idx="3">원</button>
-            </div>
-            <div class="menu">
-                색상 : <input type="color" id="colorPicker">
-                선두께 : <input type="number" value="1" id="lineWidthInput">
-                폰트크기 : <input type="number" value="20" id="fontSize">
-            </div>
-            <div class="draw">
-                <canvas id="myCanvas" width="800" height="600"></canvas>
-            </div>
-        </section>
+      <header>
+        <h2>에디터</h2>
+      </header>
+      <section id="content">
+        <div class="menu">
+          <button class="menu-btn" id="btnBrush" data-idx="0">브러쉬</button>
+          <button class="menu-btn" id="btnLine" data-idx="1">직선</button>
+          <button class="menu-btn" id="btnRect" data-idx="2">사각형</button>
+          <button class="menu-btn" id="btnCircle" data-idx="3">원</button>
+        </div>
+        <div class="menu">
+          색상 : <input type="color" id="colorPicker" /> 선두께 :
+          <input type="number" value="1" id="lineWidthInput" />
+          채우기 :
+          <input type="checkbox" name="rectFillInput" id="rectFillInput" />
+        </div>
+        <div class="draw">
+          <canvas id="myCanvas" width="800" height="600"></canvas>
+        </div>
+      </section>
     </div>
-</body>
+  </body>
 </html>
